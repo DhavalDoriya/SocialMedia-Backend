@@ -1,13 +1,23 @@
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 8001;
-require('dotenv').config()
+const dotenv = require('dotenv')
+const db = require("./db");
+const helmet = require('helmet');
+const morgan = require('morgan');
 
 const userRoute = require("./routes/users");
-const db = require("./db")
+const authRoute = require("./routes/auth");
+
 
 app.use(express.json());
+dotenv.config()
+app.use(helmet())
+app.use(morgan("common"))
+
+
 app.use("/users", userRoute);
+app.use("/auth", authRoute);
 
 app.get('/', function (req, res) {
   res.send('Hello World')

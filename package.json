@@ -4,6 +4,7 @@
   "description": "mini-project in sem-3 MCA",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,11 +21,14 @@
   },
   "homepage": "https://github.com/DhavalDoriya/SocialMedia-Backend#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "env": "^0.0.2",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
     "mongodb": "^4.1.1",
     "mongoose": "^6.0.7",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.12"
   }
 }
