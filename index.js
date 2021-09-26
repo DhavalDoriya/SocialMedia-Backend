@@ -8,7 +8,7 @@ const morgan = require('morgan');
 
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
-
+const postRoute = require("./routes/post");
 
 app.use(express.json());
 dotenv.config()
@@ -18,6 +18,7 @@ app.use(morgan("common"))
 
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
+app.use("/post", postRoute);
 
 app.get('/', function (req, res) {
   res.send('Hello World')

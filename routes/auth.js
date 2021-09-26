@@ -26,31 +26,35 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-   try {
-       const user =await User.findOne({email:req.body.email})
-       !user && res.status(404).json("user not found")
-        password = req.body.password
-       const passwordMatch = await bcrypt.compare(password, user.password);
-    //    const valpass = await bcrypt.compare(req.body.password,user.pasword)
-       !passwordMatch && res.status(400).json("worang pass")
-
-       res.status(200).json(user)
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      password = req.body.password;
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      //    const valpass = await bcrypt.compare(req.body.password,user.pasword)
+      if (passwordMatch) {
+        res.status(200).json(user);
         console.log("login sucess");
-   } catch (error) {
-    res.status(500).json(error)
-       console.log(error);
-   }
-  });
-
-
-router.get("/", async (req, res) => {
-  const user = await new User({
-    usename: "jj",
-    emain: "jon@mail.com",
-    password: "123455",
-  });
-  await user.save();
-  res.send(user);
+      } else {
+        res.status(400).json("worang pass");
+      }
+    } else {
+      res.status(404).json("user not found");
+    }
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
+  }
 });
+
+// router.get("/", async (req, res) => {
+//   const user = await new User({
+//     usename: "jj",
+//     emain: "jon@mail.com",
+//     password: "123455",
+//   });
+//   await user.save();
+//   res.send(user);
+// });
 
 module.exports = router;
